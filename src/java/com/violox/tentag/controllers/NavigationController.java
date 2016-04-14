@@ -20,6 +20,11 @@ public class NavigationController {
         String url = "/admin/users.xhtml";
         return redirect ? (url + "?faces-redirect=true") : url;
     }
+     
+    public String toAdminBatches(boolean redirect) {
+        String url = "/admin/batches.xhtml";
+        return redirect ? (url + "?faces-redirect=true") : url;
+    }
     
     public String toPrinter(boolean redirect) {
         String url = "/printer/index.xhtml";

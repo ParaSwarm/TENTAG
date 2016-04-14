@@ -1,5 +1,6 @@
 package com.violox.tentag.controllers;
 
+import com.violox.tentag.domain.Batch;
 import com.violox.tentag.domain.DbContext;
 import com.violox.tentag.domain.Key;
 import com.violox.tentag.domain.User;
@@ -10,9 +11,9 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
-@Named(value = "adminUserController")
+@Named(value = "adminBatchController")
 @ViewScoped
-public class AdminUserController implements Serializable {
+public class AdminBatchController implements Serializable {
 
     @Inject
     private Key<Integer> obj_key;
@@ -20,23 +21,24 @@ public class AdminUserController implements Serializable {
     @Inject
     private DbContext dbcontext;
 
-    private ArrayList<User> users;
+    private ArrayList<Batch> batches;
 
     @PostConstruct
     public void init() {
-        if (users == null) {
-            users = new ArrayList<>();
+        if (batches == null) {
+            batches = new ArrayList<>();
 
-            users = dbcontext.User().get();
+            batches = dbcontext.Batch().get();
 
-            for (User u : users) {
-                u.fillGroups(dbcontext,obj_key);
+            for (Batch batch : batches) {
+                batch.fillProperty(dbcontext);
+                batch.fillPrinter(dbcontext);
             }
         }
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<Batch> getBatches() {
+        return batches;
     }
 
 }
